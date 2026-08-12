@@ -1,22 +1,35 @@
 import Image from "next/image";
 
 // Data dummy sementara untuk galeri foto
-const projects = [
+const packages = [
   {
     id: 1,
-    title: "Sitting room",
-    // Menggunakan gambar placeholder sementara dari Unsplash
-    imageUrl:
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800",
+    title: "Modern Classic",
+    price: "20.000.000 IDR",
+    category: "Kitchen Set",
+    dimensions: "3.5 x 3M",
+    scope:
+      "Consultation with expert, design result, bed frame, headboard, bedside table, mirror, wainscoting, wallpainting.",
+    imageUrl: "/dapur.jpg", // Using your local image
   },
   {
     id: 2,
-    title: "Kitchen Set",
-    imageUrl: "/dapur.jpg", // Gambar lokal dari folder public
+    title: "Modern",
+    price: "35.000.000 IDR",
+    category: "Living Room",
+    dimensions: "4 x 2.9M",
+    scope:
+      "Consultation with expert, design result, side cabinet, bed frame, bedside table, headboard, floating shelves, lighting, electric outlet, wall treatment, mirror, backdrop TV, floating table.",
+    imageUrl: "/ruangtamu.jpg", // Using your local image
   },
   {
     id: 3,
-    title: "Bedroom",
+    title: "Industrial",
+    price: "30.000.000 IDR",
+    category: "Bedroom",
+    dimensions: "4 x 3.9M",
+    scope:
+      "Consultation with expert, design result, bedframe, headboard, bedside table, wall painting, working table, open rack, wardrobe, mirror, vynil.",
     imageUrl:
       "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
   },
@@ -59,24 +72,48 @@ export default function Home() {
           OUR PROJECTS
         </h2>
 
-        {/* Grid Galeri */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
+        {/* Carousel Container */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-10 custom-scrollbar">
+          {packages.map((pkg) => (
             <div
-              key={project.id}
-              className="group relative overflow-hidden rounded-lg aspect-[4/3] bg-gray-900"
+              key={pkg.id}
+              className="snap-start shrink-0 w-[340px] md:w-[380px] bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col"
             >
-              <Image
-                src={project.imageUrl}
-                alt={project.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              {/* Overlay Teks saat di-hover */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <h3 className="text-xl font-semibold text-white tracking-wider">
-                  {project.title}
+              {/* Image Container with Badges */}
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src={pkg.imageUrl}
+                  alt={pkg.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {/* Badges */}
+                <div className="absolute bottom-4 left-4 flex gap-2">
+                  <span className="bg-[#F5B041] text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                    {pkg.category}
+                  </span>
+                  <span className="bg-white text-gray-800 text-xs font-bold px-3 py-1 rounded-full shadow">
+                    {pkg.dimensions}
+                  </span>
+                </div>
+              </div>
+
+              {/* Text Content */}
+              <div className="p-6 flex flex-col flex-grow bg-white text-gray-900">
+                <h3 className="text-2xl font-extrabold text-[#D35400] mb-4">
+                  {pkg.price}
                 </h3>
+                <h4 className="text-xl font-bold mb-3 text-gray-800">
+                  {pkg.title}
+                </h4>
+                <div className="mt-auto">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                    Scope of Work:
+                  </p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {pkg.scope}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
@@ -85,9 +122,7 @@ export default function Home() {
 
       {/* --- Bagian Kontak --- */}
       <section className="flex flex-col items-center justify-center py-20 bg-black">
-        <h2 className="text-2xl font-bold mb-6">
-          Mulai Proyek Anda Bersama Kami
-        </h2>
+        <h2 className="text-2xl font-bold mb-6">Start Your Project With Us</h2>
         <a
           href={waLink}
           target="_blank"
