@@ -1,154 +1,276 @@
 import Image from "next/image";
 
-// Data dummy sementara untuk galeri foto
-const packages = [
+// --- DATA DUMMY ---
+const gallery = [
   {
     id: 1,
-    title: "Modern Classic",
+    name: "Modern Classic Bedroom",
     price: "20.000.000 IDR",
-    category: "Kitchen Set",
     dimensions: "3.5 x 3M",
-    scope:
-      "Consultation with expert, design result, bed frame, headboard, bedside table, mirror, wainscoting, wallpainting.",
-    imageUrl: "/dapur.jpg", // Using your local image
+    imageUrl: "/dapur.jpg", // Menggunakan foto lokal Anda
   },
   {
     id: 2,
-    title: "Modern",
+    name: "Urban Modern Kitchen",
     price: "35.000.000 IDR",
-    category: "Living Room",
     dimensions: "4 x 2.9M",
-    scope:
-      "Consultation with expert, design result, side cabinet, bed frame, bedside table, headboard, floating shelves, lighting, electric outlet, wall treatment, mirror, backdrop TV, floating table.",
-    imageUrl: "/ruangtamu.jpg", // Using your local image
+    imageUrl:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=800",
   },
   {
-    id: 3,
-    title: "Industrial",
+    id: 4,
+    name: "Industrial Living Room",
     price: "30.000.000 IDR",
-    category: "Bedroom",
     dimensions: "4 x 3.9M",
-    scope:
-      "Consultation with expert, design result, bedframe, headboard, bedside table, wall painting, working table, open rack, wardrobe, mirror, vynil.",
     imageUrl:
       "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
   },
   {
-    id: 4,
-    title: "Modern Minimalist",
-    price: "40.000.000 IDR",
-    category: "Bathroom",
+    id: 5,
+    name: "Industrial Living Room",
+    price: "30.000.000 IDR",
     dimensions: "4 x 3.9M",
-    scope:
-      "Consultation with expert, design result, bedframe, headboard, bedside table, wall painting, working table, open rack, wardrobe, mirror, vynil.",
-    imageUrl: "/kamarmandi.jpg", // Using your local image
+    imageUrl:
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    id: 6,
+    name: "Industrial Living Room",
+    price: "30.000.000 IDR",
+    dimensions: "4 x 3.9M",
+    imageUrl:
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    id: 7,
+    name: "Industrial Living Room",
+    price: "30.000.000 IDR",
+    dimensions: "4 x 3.9M",
+    imageUrl:
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    id: 8,
+    name: "Industrial Living Room",
+    price: "30.000.000 IDR",
+    dimensions: "4 x 3.9M",
+    imageUrl:
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
+  },
+];
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Sarah Wijaya",
+    text: '"Sangat puas dengan hasil kerja AKE Design. Desainnya elegan dan pengerjaannya tepat waktu!"',
+    photoUrl:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
+  },
+  {
+    id: 2,
+    name: "Budi Santoso",
+    text: '"Ruangan saya jadi terasa lebih luas dan fungsional. Timnya sangat komunikatif dan kooperatif."',
+    photoUrl:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
+  },
+  {
+    id: 3,
+    name: "Budi Santoso",
+    text: '"Ruangan saya jadi terasa lebih luas dan fungsional. Timnya sangat komunikatif dan kooperatif."',
+    photoUrl:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
+  },
+  {
+    id: 4,
+    name: "Budi Santoso",
+    text: '"Ruangan saya jadi terasa lebih luas dan fungsional. Timnya sangat komunikatif dan kooperatif."',
+    photoUrl:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
+  },
+  {
+    id: 5,
+    name: "Budi Santoso",
+    text: '"Ruangan saya jadi terasa lebih luas dan fungsional. Timnya sangat komunikatif dan kooperatif."',
+    photoUrl:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
   },
 ];
 
 export default function Home() {
-  // Ganti dengan nomor WhatsApp aktif AKE DESIGN (gunakan kode negara 62 tanpa tanda +)
   const waNumber = "6281234567890";
-  const waMessage =
-    "Halo AKE DESIGN, saya tertarik untuk berdiskusi mengenai proyek interior.";
+  const waMessage = "Halo AKE DESIGN, saya tertarik untuk Free Consult.";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
   return (
-    <main className="min-h-screen bg-[#111111] text-gray-100 font-sans">
-      {/* --- Bagian Hero / Header --- */}
-      {/* --- Top Header Bar --- */}
-      <header className="w-full bg-white px-6 py-4 border-b-4 border-[#D35400]">
-        <div className="max-w-7xl mx-auto flex items-center gap-5">
-          {/* Logo Container (Resized for Header) */}
-          <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
-            <Image
-              src="/logo.png"
-              alt="AKE Design Logo"
-              fill
-              className="object-contain"
-              priority
-            />
+    <main className="min-h-screen bg-white text-gray-900 font-sans">
+      {/* --- 1. TOP NAVBAR --- */}
+      <nav className="fixed top-0 w-full z-50 bg-white/60 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          {/* Logo Area */}
+          <div className="flex items-center gap-3">
+            <div className="relative w-10 h-10 bg-black rounded">
+              <Image
+                src="/logo.png"
+                alt="AKE Design Logo"
+                fill
+                className="object-contain p-1"
+              />
+            </div>
+            <span className="font-bold text-xl tracking-wider">AKE DESIGN</span>
           </div>
 
-          {/* Company Name */}
-          <h1 className="text-2xl md:text-3xl font-bold text-black tracking-wide">
-            AKE Design
-          </h1>
+          {/* Navigation Links (Desktop) */}
+          <div className="hidden md:flex gap-8 font-semibold text-sm tracking-wide">
+            <a href="#home" className="hover:text-[#D35400] transition">
+              HOME
+            </a>
+            <a href="#about" className="hover:text-[#D35400] transition">
+              ABOUT
+            </a>
+            <a href="#testimonials" className="hover:text-[#D35400] transition">
+              TESTIMONIALS
+            </a>
+            <a href="#gallery" className="hover:text-[#D35400] transition">
+              GALLERY
+            </a>
+          </div>
         </div>
-      </header>
+      </nav>
 
-      {/* Optional: A small hero text section below the header if you still want the description */}
-      <section className="flex flex-col items-center justify-center py-16 px-4 text-center bg-[#111111]">
-        <p className="text-lg md:text-xl text-gray-400 max-w-2xl">
-          Eksplorasi estetika dan fungsionalitas. Kami mewujudkan visi
-          arsitektur interior Anda menjadi nyata.
-        </p>
+      {/* --- 2. HERO SECTION (Dengan Efek Fade ke Putih) --- */}
+      <section
+        id="home"
+        className="relative w-full h-[90vh] flex flex-col items-center justify-center text-center px-4 pt-20"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/dapur.jpg"
+            alt="Interior Background"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        {/* Gradient Overlay (Hitam di atas, transparan di tengah, putih pekat di bawah) */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/80 via-black/30 to-white"></div>
+
+        {/* Hero Content */}
+        <div className="relative z-20 flex flex-col items-center mt-10">
+          <h1 className="text-5xl md:text-7xl font-serif text-white drop-shadow-lg mb-4">
+            More Cozy,
+            <br />
+            More Elegant
+          </h1>
+          <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl drop-shadow-md">
+            Make your Living Experience even More Memorable
+          </p>
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-black text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-800 transition shadow-xl flex items-center gap-2"
+          >
+            Free Consult
+          </a>
+        </div>
       </section>
 
-      {/* --- Bagian Galeri Proyek --- */}
-      <section className="container mx-auto px-4 py-20">
-        <h2 className="text-3xl font-bold text-center mb-12 text-white tracking-wide">
-          OUR PROJECTS
+      {/* --- 3. ABOUT SECTION --- */}
+      <section id="about" className="max-w-7xl mx-auto px-6 py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight mb-6">
+              Experience Quality Life with AKE Design
+            </h2>
+            <div className="w-16 h-1.5 bg-[#D35400] mb-6 rounded-full"></div>
+          </div>
+          <div className="text-lg text-gray-600 leading-relaxed space-y-4">
+            <p>
+              AKE Design adalah konsultan arsitektur interior yang berdedikasi
+              untuk mengubah visi Anda menjadi ruang nyata yang estetik dan
+              fungsional.
+            </p>
+            <p>
+              Semua tim desain, sipil, dan furnitur kami kerjakan secara
+              in-house di bawah supervisi profesional untuk memastikan setiap
+              detail sesuai dengan standar kualitas tertinggi.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* --- 4. TESTIMONIALS SECTION --- */}
+      <section id="testimonials" className="w-full bg-gray-50 py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-16 text-black tracking-wide">
+            TESTIMONIALS
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {testimonials.map((testi) => (
+              <div
+                key={testi.id}
+                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col items-center text-center"
+              >
+                <div className="relative w-20 h-20 mb-6">
+                  <Image
+                    src={testi.photoUrl}
+                    alt={testi.name}
+                    fill
+                    className="object-cover rounded-full shadow-md"
+                  />
+                </div>
+                <p className="text-gray-600 italic mb-6 text-lg">
+                  {testi.text}
+                </p>
+                <h4 className="font-bold text-black uppercase tracking-wider">
+                  {testi.name}
+                </h4>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- 5. GALLERY SECTION --- */}
+      <section id="gallery" className="max-w-7xl mx-auto px-6 py-24">
+        <h2 className="text-3xl font-bold text-center mb-16 text-black tracking-wide">
+          GALLERY PROJECT
         </h2>
 
-        {/* Carousel Container */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-10 custom-scrollbar">
-          {packages.map((pkg) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {gallery.map((item) => (
             <div
-              key={pkg.id}
-              className="snap-start shrink-0 w-[340px] md:w-[380px] bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col"
+              key={item.id}
+              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col"
             >
-              {/* Image Container with Badges */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-64 w-full">
                 <Image
-                  src={pkg.imageUrl}
-                  alt={pkg.title}
+                  src={item.imageUrl}
+                  alt={item.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover"
                 />
-                {/* Badges */}
-                <div className="absolute bottom-4 left-4 flex gap-2">
-                  <span className="bg-[#F5B041] text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-                    {pkg.category}
-                  </span>
-                  <span className="bg-white text-gray-800 text-xs font-bold px-3 py-1 rounded-full shadow">
-                    {pkg.dimensions}
-                  </span>
-                </div>
               </div>
-
-              {/* Text Content */}
-              <div className="p-6 flex flex-col flex-grow bg-white text-gray-900">
-                <h3 className="text-2xl font-extrabold text-[#D35400] mb-4">
-                  {pkg.price}
-                </h3>
-                <h4 className="text-xl font-bold mb-3 text-gray-800">
-                  {pkg.title}
-                </h4>
-                <div className="mt-auto">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                    Scope of Work:
-                  </p>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {pkg.scope}
-                  </p>
+              <div className="p-6 flex flex-col flex-grow">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-xl font-bold text-black w-2/3">
+                    {item.name}
+                  </h3>
+                  <span className="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full">
+                    {item.dimensions}
+                  </span>
                 </div>
+                <p className="text-2xl font-extrabold text-[#D35400] mt-auto">
+                  {item.price}
+                </p>
               </div>
             </div>
           ))}
         </div>
-      </section>
-
-      {/* --- Bagian Kontak --- */}
-      <section className="flex flex-col items-center justify-center py-20 bg-black">
-        <h2 className="text-2xl font-bold mb-6">Start Your Project With Us</h2>
-        <a
-          href={waLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center gap-2 shadow-lg"
-        >
-          Hubungi Kami via WhatsApp
-        </a>
       </section>
     </main>
   );
