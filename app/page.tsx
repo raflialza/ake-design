@@ -33,6 +33,16 @@ const packages = [
     imageUrl:
       "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
   },
+  {
+    id: 4,
+    title: "Modern Minimalist",
+    price: "40.000.000 IDR",
+    category: "Bathroom",
+    dimensions: "4 x 3.9M",
+    scope:
+      "Consultation with expert, design result, bedframe, headboard, bedside table, wall painting, working table, open rack, wardrobe, mirror, vynil.",
+    imageUrl: "/kamarmandi.jpg", // Using your local image
+  },
 ];
 
 export default function Home() {
@@ -45,24 +55,32 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#111111] text-gray-100 font-sans">
       {/* --- Bagian Hero / Header --- */}
-      <section className="flex flex-col items-center justify-center py-24 px-4 text-center border-b border-gray-800">
-        <div className="mb-8 relative w-48 h-48">
-          {/* Menampilkan Logo */}
-          <Image
-            src="/logo.png"
-            alt="AKE Design Logo"
-            fill
-            className="object-contain"
-            priority
-          />
+      {/* --- Top Header Bar --- */}
+      <header className="w-full bg-white px-6 py-4 border-b-4 border-[#D35400]">
+        <div className="max-w-7xl mx-auto flex items-center gap-5">
+          {/* Logo Container (Resized for Header) */}
+          <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
+            <Image
+              src="/logo.png"
+              alt="AKE Design Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+
+          {/* Company Name */}
+          <h1 className="text-2xl md:text-3xl font-bold text-black tracking-wide">
+            AKE Design
+          </h1>
         </div>
-        <h1 className="text-4xl font-extrabold tracking-widest mb-4 text-[#D4AF37]">
-          AKE DESAIN
-        </h1>
-        <p className="text-lg text-gray-400 max-w-2xl">
-          Interior design is the strategic art of transforming spaces to
-          harmonize beautiful aesthetics with practical functionality, creating
-          environments tailored to your unique lifestyle.
+      </header>
+
+      {/* Optional: A small hero text section below the header if you still want the description */}
+      <section className="flex flex-col items-center justify-center py-16 px-4 text-center bg-[#111111]">
+        <p className="text-lg md:text-xl text-gray-400 max-w-2xl">
+          Eksplorasi estetika dan fungsionalitas. Kami mewujudkan visi
+          arsitektur interior Anda menjadi nyata.
         </p>
       </section>
 
