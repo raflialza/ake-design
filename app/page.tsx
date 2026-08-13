@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-// --- DUMMY DATA ---
+// --- DATA DUMMY ---
 const gallery = [
   {
     id: 1,
@@ -48,25 +48,25 @@ const testimonials = [
 ];
 
 export default function Home() {
-  // State to manage the mobile menu
+  // State untuk mengontrol buka/tutup menu mobile
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const waNumber = "6281234567890";
   const waMessage = "Halo AKE DESIGN, saya tertarik untuk Free Consult.";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
-  // Functions to handle menu toggling
+  // Fungsi untuk handle klik menu
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <main className="min-h-screen bg-white text-gray-900 font-sans">
+    <main className="min-h-screen bg-white text-gray-900 font-sans relative pb-20">
       {/* --- 1. TOP NAVBAR --- */}
-      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-sm shadow-sm transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center relative z-50">
           {/* Logo Area */}
           <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 bg-black rounded">
+            <div className="relative w-12 h-12 bg-black rounded-md">
               <Image
                 src="/logo.png"
                 alt="AKE Design Logo"
@@ -74,35 +74,38 @@ export default function Home() {
                 className="object-contain p-1"
               />
             </div>
-            <span className="font-bold text-xl tracking-wider">AKE DESIGN</span>
+            <span className="font-bold text-xl tracking-wide text-black">
+              AKE DESIGN
+            </span>
           </div>
 
-          {/* Hamburger Icon (Mobile Only) */}
+          {/* Hamburger Icon (Mobile & Tablet) */}
           <button
-            className="md:hidden text-gray-800 focus:outline-none"
+            className="md:hidden block text-black focus:outline-none p-2 relative z-[60] cursor-pointer"
             onClick={toggleMenu}
             aria-label="Toggle Menu"
+            aria-expanded={isMenuOpen}
           >
             <svg
-              className="w-8 h-8"
+              className="w-8 h-8 pointer-events-none" // Tambahan: Mencegah SVG memblokir klik di HP
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
               {isMenuOpen ? (
-                // Close (X) Icon
+                // Ikon Close (X)
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   d="M6 18L18 6M6 6l12 12"
                 />
               ) : (
-                // Hamburger Menu Icon
+                // Ikon Hamburger
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               )}
@@ -110,55 +113,63 @@ export default function Home() {
           </button>
 
           {/* Navigation Links (Desktop) */}
-          <div className="hidden md:flex gap-8 font-semibold text-sm tracking-wide">
-            <a href="#home" className="hover:text-[#D35400] transition">
+          <div className="hidden md:flex gap-8 font-semibold text-sm tracking-widest text-black">
+            <a href="#home" className="hover:text-[#F5B041] transition">
               HOME
             </a>
-            <a href="#about" className="hover:text-[#D35400] transition">
+            <a href="#about" className="hover:text-[#F5B041] transition">
               ABOUT
             </a>
-            <a href="#testimonials" className="hover:text-[#D35400] transition">
+            <a href="#testimonials" className="hover:text-[#F5B041] transition">
               TESTIMONIALS
             </a>
-            <a href="#gallery" className="hover:text-[#D35400] transition">
+            <a href="#gallery" className="hover:text-[#F5B041] transition">
               GALLERY
             </a>
           </div>
         </div>
 
+        {/* Garis Aksen Bawah Header */}
+        <div className="flex w-full h-1.5 md:h-2 relative z-50">
+          <div className="w-[75%] bg-[#F5B041]"></div>
+          <div className="w-[25%] bg-[#C0392B]"></div>
+        </div>
+
         {/* Navigation Links (Mobile Dropdown Menu) */}
-        {/* Uses max-height and opacity transitions to create a smooth opening/closing effect */}
+        {/* Tambahan: top-full, left-0, dan pointer-events-none agar tidak menutupi tombol saat tertutup */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+          className={`md:hidden absolute top-full left-0 w-full bg-white shadow-lg transition-all duration-300 ease-in-out origin-top z-40 ${
+            isMenuOpen
+              ? "opacity-100 scale-y-100 pointer-events-auto"
+              : "opacity-0 scale-y-0 pointer-events-none"
           }`}
         >
-          <div className="flex flex-col items-center gap-6 py-6 bg-white border-t border-gray-100 font-semibold tracking-wide">
+          <div className="flex flex-col items-center gap-6 py-8 font-bold tracking-widest text-black border-t border-gray-100">
             <a
               href="#home"
               onClick={closeMenu}
-              className="hover:text-[#D35400] transition w-full text-center"
+              className="hover:text-[#F5B041] transition w-full text-center"
             >
               HOME
             </a>
             <a
               href="#about"
               onClick={closeMenu}
-              className="hover:text-[#D35400] transition w-full text-center"
+              className="hover:text-[#F5B041] transition w-full text-center"
             >
               ABOUT
             </a>
             <a
               href="#testimonials"
               onClick={closeMenu}
-              className="hover:text-[#D35400] transition w-full text-center"
+              className="hover:text-[#F5B041] transition w-full text-center"
             >
               TESTIMONIALS
             </a>
             <a
               href="#gallery"
               onClick={closeMenu}
-              className="hover:text-[#D35400] transition w-full text-center"
+              className="hover:text-[#F5B041] transition w-full text-center"
             >
               GALLERY
             </a>
@@ -196,7 +207,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="bg-black text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-800 transition shadow-xl flex items-center gap-2"
           >
-            Free Consult
+            👍 Free Consult
           </a>
         </div>
       </section>
@@ -208,9 +219,9 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight mb-6">
               Experience Quality Life with AKE Design
             </h2>
-            <div className="w-16 h-1.5 bg-[#D35400] mb-6 rounded-full"></div>
+            <div className="w-16 h-1.5 bg-[#F5B041] mb-6 rounded-full"></div>
           </div>
-          <div className="text-lg text-gray-600 leading-relaxed space-y-4">
+          <div className="text-lg text-gray-600 leading-relaxed space-y-4 font-medium">
             <p>
               AKE Design adalah konsultan arsitektur interior yang berdedikasi
               untuk mengubah visi Anda menjadi ruang nyata yang estetik dan
@@ -235,12 +246,10 @@ export default function Home() {
             APA KATA KLIEN KAMI
           </h2>
 
-          {/* Swipeable Carousel Container */}
           <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 custom-scrollbar">
             {testimonials.map((testi) => (
               <div
                 key={testi.id}
-                // w-[85vw] ensures a bit of the next card peeks out on mobile so users know to swipe
                 className="snap-center shrink-0 w-[85vw] sm:w-[400px] md:w-[450px] bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col items-center text-center border border-gray-100"
               >
                 <div className="relative w-20 h-20 mb-6">
@@ -261,17 +270,16 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Clickable Button */}
-          {/* <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex justify-center">
             <a
-              href={waLink} // Reusing your WhatsApp link here, but you can change it to any URL
+              href={waLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#D35400] hover:bg-[#b04600] text-white px-8 py-3 rounded-full font-bold text-lg transition-colors shadow-lg"
+              className="bg-[#C0392B] hover:bg-[#a02f23] text-white px-8 py-3 rounded-full font-bold text-lg transition-colors shadow-lg"
             >
               Share Your Experience
             </a>
-          </div> */}
+          </div>
         </div>
       </section>
 
@@ -287,14 +295,14 @@ export default function Home() {
           {gallery.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col"
+              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col group"
             >
-              <div className="relative h-64 w-full">
+              <div className="relative h-64 w-full overflow-hidden">
                 <Image
                   src={item.imageUrl}
                   alt={item.name}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
               <div className="p-6 flex flex-col flex-grow">
@@ -302,11 +310,11 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-black w-2/3">
                     {item.name}
                   </h3>
-                  <span className="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full">
+                  <span className="bg-[#F5B041] text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                     {item.dimensions}
                   </span>
                 </div>
-                <p className="text-2xl font-extrabold text-[#D35400] mt-auto">
+                <p className="text-2xl font-extrabold text-[#C0392B] mt-auto">
                   {item.price}
                 </p>
               </div>
@@ -314,6 +322,23 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* --- Floating WhatsApp Button --- */}
+      <a
+        href={waLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-[#25D366] hover:bg-[#1ebd57] text-white p-4 rounded-full shadow-2xl z-[100] transition-transform hover:scale-110 flex items-center justify-center"
+        aria-label="Contact us on WhatsApp"
+      >
+        <svg
+          className="w-8 h-8 md:w-10 md:h-10 fill-current"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M12.031 0C5.394 0 0 5.394 0 12.031c0 2.12.553 4.184 1.603 6.002L.092 23.55l5.635-1.478A11.963 11.963 0 0012.03 24c6.636 0 12.03-5.394 12.03-12.03S18.666 0 12.031 0zm6.544 17.262c-.274.774-1.584 1.478-2.182 1.54-.564.06-1.32.148-3.95-1.042-3.178-1.442-5.234-4.66-5.394-4.88-.16-.22-1.282-1.706-1.282-3.256 0-1.55.808-2.31 1.096-2.61.288-.3.626-.376.836-.376.21 0 .42.002.604.01.196.01.458-.074.718.552.274.662.884 2.152.964 2.312.08.16.136.346.036.566-.1.22-.152.356-.304.526-.152.17-.32.372-.456.51-.15.15-.31.312-.136.612.174.3.774 1.282 1.666 2.072 1.154 1.022 2.112 1.34 2.412 1.49.3.15.476.126.654-.07.178-.196.764-.886.964-1.186.2-.3.396-.25.67-.15.274.1.1.734.82 2.016 2.196.196.22.326.34.356.51.03.17.03.82-.244 1.594z" />
+        </svg>
+      </a>
     </main>
   );
 }
