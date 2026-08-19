@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // --- DATA DUMMY ---
 const gallery = [
@@ -48,38 +48,63 @@ const testimonials = [
 ];
 
 export default function Home() {
-  // State untuk mengontrol buka/tutup menu mobile
+  // State untuk mengontrol menu mobile
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const waNumber = "6281234567890";
   const waMessage = "Halo AKE DESIGN, saya tertarik untuk Free Consult.";
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
-  // Fungsi untuk handle klik menu
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  // --- LOGIKA ANIMASI SCROLL (INTERSECTION OBSERVER) ---
+  useEffect(() => {
+    // Memeriksa elemen mana saja yang masuk ke layar (viewport)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Jika elemen terlihat, tambahkan class 'active' yang akan memicu animasi CSS
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.15 }, // Efek berjalan saat 15% dari elemen mulai terlihat
+    );
+
+    // Menerapkan pantauan ke semua elemen yang memiliki class 'reveal'
+    const revealElements = document.querySelectorAll(".reveal");
+    revealElements.forEach((el) => observer.observe(el));
+
+    // Pembersihan saat komponen ditutup agar memori tidak berat
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   return (
-    <main className="min-h-screen bg-white text-gray-900 font-sans relative pb-20">
+    <main className="min-h-screen bg-white text-gray-900 font-sans relative pb-20 overflow-hidden">
       {/* --- 1. TOP NAVBAR --- */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-sm shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center relative z-50">
           {/* Logo Area */}
           <div className="flex items-center gap-3">
-            <div className="relative w-12 h-12 bg-black rounded-md">
+            <div className="relative w-12 h-12 bg-black rounded-md scale-125 origin-left md:scale-150">
               <Image
                 src="/logo.png"
                 alt="AKE Design Logo"
                 fill
-                className="object-contain p-1"
+                className="object-contain"
+                priority
               />
             </div>
-            <span className="font-bold text-xl tracking-wide text-black">
+            <span className="font-bold text-xl tracking-wide text-black ml-3 md:ml-5">
               AKE DESIGN
             </span>
           </div>
 
-          {/* Hamburger Icon (Mobile & Tablet) */}
+          {/* Hamburger Icon */}
           <button
             className="md:hidden block text-black focus:outline-none p-2 relative z-[60] cursor-pointer"
             onClick={toggleMenu}
@@ -87,13 +112,12 @@ export default function Home() {
             aria-expanded={isMenuOpen}
           >
             <svg
-              className="w-8 h-8 pointer-events-none" // Tambahan: Mencegah SVG memblokir klik di HP
+              className="w-8 h-8 pointer-events-none"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
               {isMenuOpen ? (
-                // Ikon Close (X)
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -101,7 +125,6 @@ export default function Home() {
                   d="M6 18L18 6M6 6l12 12"
                 />
               ) : (
-                // Ikon Hamburger
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -136,7 +159,6 @@ export default function Home() {
         </div>
 
         {/* Navigation Links (Mobile Dropdown Menu) */}
-        {/* Tambahan: top-full, left-0, dan pointer-events-none agar tidak menutupi tombol saat tertutup */}
         <div
           className={`md:hidden absolute top-full left-0 w-full bg-white shadow-lg transition-all duration-300 ease-in-out origin-top z-40 ${
             isMenuOpen
@@ -180,7 +202,7 @@ export default function Home() {
       {/* --- 2. HERO SECTION --- */}
       <section
         id="home"
-        className="relative w-full h-[90vh] flex flex-col items-center justify-center text-center px-4 pt-20 overflow-hidden"
+        className="relative w-full h-[90vh] flex flex-col items-center justify-center text-center px-4 pt-20"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -191,8 +213,11 @@ export default function Home() {
             priority
           />
         </div>
+        {/* Gradient Fade to White */}
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/80 via-black/30 to-white"></div>
-        <div className="relative z-20 flex flex-col items-center mt-10">
+
+        {/* Elemen ini menggunakan class 'reveal' agar dianimasikan */}
+        <div className="relative z-20 flex flex-col items-center mt-10 reveal">
           <h1 className="text-5xl md:text-7xl font-serif text-white drop-shadow-lg mb-4">
             More Cozy,
             <br />
@@ -215,13 +240,14 @@ export default function Home() {
       {/* --- 3. ABOUT SECTION --- */}
       <section id="about" className="max-w-7xl mx-auto px-6 py-24 scroll-mt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="reveal">
             <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight mb-6">
               Experience Quality Life with AKE Design
             </h2>
             <div className="w-16 h-1.5 bg-[#F5B041] mb-6 rounded-full"></div>
           </div>
-          <div className="text-lg text-gray-600 leading-relaxed space-y-4 font-medium">
+          {/* delay-100 memastikan teks muncul sedikit lebih lambat setelah judul */}
+          <div className="text-lg text-gray-600 leading-relaxed space-y-4 font-medium reveal delay-100">
             <p>
               AKE Design adalah konsultan arsitektur interior yang berdedikasi
               untuk mengubah visi Anda menjadi ruang nyata yang estetik dan
@@ -242,11 +268,11 @@ export default function Home() {
         className="w-full bg-gray-50 py-24 scroll-mt-20"
       >
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12 text-black tracking-wide">
+          <h2 className="text-3xl font-bold text-center mb-12 text-black tracking-wide reveal">
             APA KATA KLIEN KAMI
           </h2>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 custom-scrollbar">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 custom-scrollbar reveal delay-100">
             {testimonials.map((testi) => (
               <div
                 key={testi.id}
@@ -270,7 +296,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex justify-center reveal delay-200">
             <a
               href={waLink}
               target="_blank"
@@ -288,14 +314,15 @@ export default function Home() {
         id="gallery"
         className="max-w-7xl mx-auto px-6 py-24 scroll-mt-20"
       >
-        <h2 className="text-3xl font-bold text-center mb-16 text-black tracking-wide">
+        <h2 className="text-3xl font-bold text-center mb-16 text-black tracking-wide reveal">
           GALLERY PROYEK
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {gallery.map((item) => (
+          {gallery.map((item, index) => (
             <div
               key={item.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col group"
+              // Menggunakan indeks untuk membuat animasi kotak foto muncul secara bergantian
+              className={`bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col group reveal delay-${(index + 1) * 100}`}
             >
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
@@ -322,6 +349,66 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* --- 6. FOOTER SECTION --- */}
+      <footer className="w-full bg-[#111111] text-gray-400 py-12 border-t-4 border-[#C0392B] reveal">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+          {/* Info Brand */}
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 bg-white rounded-sm">
+                <Image
+                  src="/logo.png"
+                  alt="AKE Design Logo"
+                  fill
+                  className="object-contain p-1"
+                />
+              </div>
+              <span className="font-bold text-xl tracking-wide text-white">
+                AKE DESIGN
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed max-w-sm">
+              Mewujudkan ruang impian Anda dengan desain yang elegan, nyaman,
+              dan fungsional.
+            </p>
+          </div>
+
+          {/* Navigasi Cepat */}
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <h4 className="text-white font-bold mb-3 tracking-wider">
+              QUICK LINKS
+            </h4>
+            <a href="#home" className="hover:text-[#F5B041] transition">
+              Home
+            </a>
+            <a href="#about" className="hover:text-[#F5B041] transition">
+              About Us
+            </a>
+            <a href="#testimonials" className="hover:text-[#F5B041] transition">
+              Testimonials
+            </a>
+            <a href="#gallery" className="hover:text-[#F5B041] transition">
+              Gallery
+            </a>
+          </div>
+
+          {/* Kontak */}
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <h4 className="text-white font-bold mb-3 tracking-wider">
+              CONTACT US
+            </h4>
+            <p className="text-sm">📍 Tangerang Selatan, Banten</p>
+            <p className="text-sm">📞 +62 812 3456 7890</p>
+            <p className="text-sm">✉️ hello@akedesign.com</p>
+          </div>
+        </div>
+
+        {/* Hak Cipta */}
+        <div className="w-full text-center mt-12 pt-6 border-t border-gray-800 text-sm">
+          &copy; {new Date().getFullYear()} AKE Design. All rights reserved.
+        </div>
+      </footer>
 
       {/* --- Floating WhatsApp Button --- */}
       <a
