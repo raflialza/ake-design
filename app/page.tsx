@@ -249,14 +249,52 @@ export default function Home() {
           {/* delay-100 memastikan teks muncul sedikit lebih lambat setelah judul */}
           <div className="text-lg text-gray-600 leading-relaxed space-y-4 font-medium reveal delay-100">
             <p>
-              AKE Design adalah konsultan arsitektur interior yang berdedikasi
-              untuk mengubah visi Anda menjadi ruang nyata yang estetik dan
-              fungsional.
+              Melangkah sejak tahun 2007, perjalanan kami bermula dari sebuah
+              visi hangat bernama Little House. Saat itu, dedikasi kami tertuju
+              pada penciptaan interior kamar anak—sebuah ruang yang kami yakini
+              sebagai kanvas pertama bagi imajinasi dan karakter buah hati untuk
+              bertumbuh.
             </p>
             <p>
-              Semua tim desain, sipil, dan furnitur kami kerjakan secara
-              in-house di bawah supervisi profesional untuk memastikan setiap
-              detail sesuai dengan standar kualitas tertinggi.
+              Seiring waktu, besarnya kepercayaan klien dan semangat kami untuk
+              terus berinovasi telah membawa mimpi sederhana itu berevolusi.
+              Hari ini, kami melangkah lebih mantap sebagai PT. Abadi Kreasindo
+              Persada (AKE Desain), hadir dengan komitmen yang lebih besar untuk
+              merangkai harmoni dan mewujudkan mahakarya dalam setiap ruang
+              impian Anda.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="max-w-7xl mx-auto px-6 py-24 scroll-mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="reveal">
+            <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight mb-6">
+              Our Vision and Mission
+            </h2>
+            <div className="w-16 h-1.5 bg-[#F5B041] mb-6 rounded-full"></div>
+          </div>
+          {/* delay-100 memastikan teks muncul sedikit lebih lambat setelah judul */}
+          <div className="text-lg text-gray-600 leading-relaxed space-y-4 font-medium reveal delay-100">
+            <p>
+              Menjadi pionir dalam menghadirkan produk home & interior yang
+              memadukan kreativitas tanpa batas, inovasi mutakhir, dan komitmen
+              pada keberlanjutan lingkungan.
+            </p>
+            <p>
+              - Dedikasi pada Klien: Menghadirkan layanan eksklusif yang
+              berpusat pada pengalaman dan kepuasan paripurna setiap klien.
+            </p>
+            <p>
+              - Kualitas Tanpa Kompromi: Menciptakan mahakarya interior
+              berstandar premium yang merepresentasikan keindahan,
+              fungsionalitas, dan daya tahan.
+            </p>
+            <p>
+              - Integritas & Pemberdayaan: Membina talenta-talenta profesional
+              yang mandiri, inovatif, serta menjunjung tinggi tanggung jawab
+              dalam setiap proses kreatif.
             </p>
           </div>
         </div>
